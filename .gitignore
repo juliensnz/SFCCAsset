@@ -7,3 +7,8 @@
 /var/
 /vendor/
 ###< symfony/framework-bundle ###
+/.idea/misc.xml
+/.idea/modules.xml
+/.idea/php.xml
+/.idea/SFCCAsset.iml
+/.idea/vcs.xml
