@@ -37,6 +37,7 @@ class ExportProductCommand extends Command
         $this
             ->setDescription('Export all products in an xml file compatible with sfcc')
             ->addArgument('filePath', InputArgument::REQUIRED, 'The filePath of the file to generate.')
+            ->addArgument('assetAttribute', InputArgument::REQUIRED, 'The asset attribute code to put images in')
             ->addOption('apiUsername', null, InputOption::VALUE_OPTIONAL, 'The username of the user.', getenv('AKENEO_API_USERNAME'))
             ->addOption('apiPassword', null, InputOption::VALUE_OPTIONAL, 'The password of the user.', getenv('AKENEO_API_PASSWORD'))
             ->addOption('apiClientId', null, InputOption::VALUE_OPTIONAL, '', getenv('AKENEO_API_CLIENT_ID'))
@@ -52,7 +53,7 @@ class ExportProductCommand extends Command
         $assets = json_decode(file_get_contents($filePath), true);
         $this->io->success('OK');
 
-        $assetAttribute = 'Images';
+        $assetAttribute = $input->getArgument('assetAttribute');
 
         $productsPage = $this->apiClient->getProductApi()->listPerPage(self::BATCH_SIZE, true, ['attributes' => $assetAttribute, 'pagination_type' => 'search_after']);
         $this->io->progressStart();
